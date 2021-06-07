@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    environment:
+      DTI_ID: 1000
+      TZ: "Asia/Seoul"
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/youyoung1/DP/portainer_data:/data
+    networks:
+      - dp
+    deploy:
+      restart_policy:
+        condition: any
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  dp:
